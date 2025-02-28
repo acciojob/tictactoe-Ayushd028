@@ -18,13 +18,11 @@ function startGame() {
     
     document.querySelector(".message").textContent = `${player1}, you're up!`;
     gameActive = true;
+    currentPlayer = "x";
+    gameBoard = ["", "", "", "", "", "", "", "", ""];
 
     document.querySelectorAll(".cell").forEach(cell => {
         cell.textContent = ""; 
-        cell.replaceWith(cell.cloneNode(true)); 
-    });
-
-    document.querySelectorAll(".cell").forEach(cell => {
         cell.addEventListener("click", handleMove);
     });
 }
@@ -38,30 +36,22 @@ function handleMove(event) {
     gameBoard[cellIndex] = currentPlayer;
     cell.textContent = currentPlayer;
 
-    cell.offsetHeight;
-
     if (checkWinner()) {
-        setTimeout(() => {
-            document.querySelector(".message").textContent = 
-                `${currentPlayer === "x" ? player1 : player2}, congratulations you won!`;
-        }, 100);
+        document.querySelector(".message").textContent = 
+            `${currentPlayer === "x" ? player1 : player2}, congratulations you won!`;
         gameActive = false;
         return;
     }
 
     if (!gameBoard.includes("")) {
-        setTimeout(() => {
-            document.querySelector(".message").textContent = "It's a Draw!";
-        }, 50);
+        document.querySelector(".message").textContent = "It's a Draw!";
         gameActive = false;
         return;
     }
 
     currentPlayer = currentPlayer === "x" ? "o" : "x";
-    setTimeout(() => {
-        document.querySelector(".message").textContent = 
-            `${currentPlayer === "x" ? player1 : player2}, you're up!`;
-    }, 50);
+    document.querySelector(".message").textContent = 
+        `${currentPlayer === "x" ? player1 : player2}, you're up!`;
 }
 
 function checkWinner() {
@@ -71,9 +61,11 @@ function checkWinner() {
         [0, 4, 8], [2, 4, 6] 
     ];
 
-    return winPatterns.some(pattern => 
-        gameBoard[pattern[0]] !== "" &&
-        gameBoard[pattern[0]] === gameBoard[pattern[1]] &&
-        gameBoard[pattern[1]] === gameBoard[pattern[2]]
-    );
+    for (let pattern of winPatterns) {
+        let [a, b, c] = pattern;
+        if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+            return true;
+        }
+    }
+    return false;
 }
