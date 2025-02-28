@@ -16,8 +16,13 @@ function startGame() {
     document.querySelector(".player-input").style.display = "none";
     document.querySelector(".game-container").style.display = "block";
     
-    document.querySelector(".message").innerText = `${player1}, you're up!`;
+    document.querySelector(".message").textContent = `${player1}, you're up!`;
     gameActive = true;
+
+    document.querySelectorAll(".cell").forEach(cell => {
+        cell.textContent = ""; 
+        cell.replaceWith(cell.cloneNode(true)); 
+    });
 
     document.querySelectorAll(".cell").forEach(cell => {
         cell.addEventListener("click", handleMove);
@@ -31,24 +36,32 @@ function handleMove(event) {
     if (!gameActive || gameBoard[cellIndex] !== "") return;
 
     gameBoard[cellIndex] = currentPlayer;
-    cell.innerText = currentPlayer;
+    cell.textContent = currentPlayer;
+
+    cell.offsetHeight;
 
     if (checkWinner()) {
-        document.querySelector(".message").innerText = 
-            `${currentPlayer === "X" ? player1 : player2}, congratulations! You won! 🎉`;
+        setTimeout(() => {
+            document.querySelector(".message").textContent = 
+                `${currentPlayer === "X" ? player1 : player2}, congratulations! You won! 🎉`;
+        }, 100);
         gameActive = false;
         return;
     }
 
     if (!gameBoard.includes("")) {
-        document.querySelector(".message").innerText = "It's a Draw! 🤝";
+        setTimeout(() => {
+            document.querySelector(".message").textContent = "It's a Draw! 🤝";
+        }, 50);
         gameActive = false;
         return;
     }
 
     currentPlayer = currentPlayer === "X" ? "O" : "X";
-    document.querySelector(".message").innerText = 
-        `${currentPlayer === "X" ? player1 : player2}, you're up!`;
+    setTimeout(() => {
+        document.querySelector(".message").textContent = 
+            `${currentPlayer === "X" ? player1 : player2}, you're up!`;
+    }, 50);
 }
 
 function checkWinner() {
