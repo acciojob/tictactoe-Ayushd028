@@ -38,8 +38,8 @@ function handleMove(event) {
     cell.textContent = currentPlayer;
 
     if (checkWinner()) {
-        document.querySelector(".message").textContent = 
-            `${currentPlayer === "x" ? player1 : player2}, congratulations you won!`;
+        let winnerName = currentPlayer === "x" ? player1 : player2;
+        document.querySelector(".message").textContent = `${winnerName} congratulations you won!`;
         gameActive = false;
         return;
     }
@@ -51,9 +51,12 @@ function handleMove(event) {
     }
 
     currentPlayer = currentPlayer === "x" ? "o" : "x";
-    document.querySelector(".message").textContent = 
-        `${currentPlayer === "x" ? player1 : player2}, you're up!`;
+    let nextPlayerName = currentPlayer === "x" ? player1 : player2;
+    setTimeout(() => {
+        document.querySelector(".message").textContent = `${nextPlayerName}, you're up!`;
+    }, 100);  
 }
+
 
 function checkWinner() {
     const winPatterns = [
