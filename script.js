@@ -15,16 +15,15 @@ function startGame() {
 
     document.querySelector(".player-input").style.display = "none";
     document.querySelector(".game-container").style.display = "block";
-    
+
     document.querySelector(".message").textContent = `${player1}, you're up!`;
     gameActive = true;
     currentPlayer = "x";
     gameBoard = ["", "", "", "", "", "", "", "", ""];
 
     document.querySelectorAll(".cell").forEach(cell => {
-        cell.textContent = ""; 
-        cell.removeEventListener("click", handleMove); 
-        cell.addEventListener("click", handleMove);   
+        cell.textContent = "";
+        cell.addEventListener("click", handleMove);
     });
 }
 
@@ -38,31 +37,28 @@ function handleMove(event) {
     cell.textContent = currentPlayer;
 
     if (checkWinner()) {
-        let winnerName = currentPlayer === "x" ? player1 : player2;
-        document.querySelector(".message").textContent = `${winnerName} congratulations you won!`;
-        gameActive = false;
-        return;
-    }
-
-    if (!gameBoard.includes("")) {
-        document.querySelector(".message").textContent = "It's a Draw!";
-        gameActive = false;
-        return;
-    }
-
-    currentPlayer = currentPlayer === "x" ? "o" : "x";
-    let nextPlayerName = currentPlayer === "x" ? player1 : player2;
-    setTimeout(() => {
-        document.querySelector(".message").textContent = `${nextPlayerName}, you're up!`;
-    }, 100);  
+    document.querySelector(".message").textContent = 
+        `${currentPlayer === "x" ? player1 : player2}, congratulations you won!`;
+    gameActive = false;
+    return;
 }
 
+    if (!gameBoard.includes("")) {
+    document.querySelector(".message").textContent = "It's a Draw!";
+    gameActive = false;
+    return;
+}
+
+    currentPlayer = currentPlayer === "x" ? "o" : "x";
+document.querySelector(".message").textContent = 
+    `${currentPlayer === "x" ? player1 : player2}, you're up!`;
+}
 
 function checkWinner() {
     const winPatterns = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8], 
         [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-        [0, 4, 8], [2, 4, 6] 
+        [0, 4, 8], [2, 4, 6]
     ];
 
     for (let pattern of winPatterns) {
