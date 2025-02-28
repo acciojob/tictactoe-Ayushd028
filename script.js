@@ -4,7 +4,7 @@ let currentPlayer = "x";
 let gameBoard = ["", "", "", "", "", "", "", "", ""];
 let gameActive = false;
 
-async function startGame() {
+function startGame() {
     player1 = document.getElementById("player1").value.trim();
     player2 = document.getElementById("player2").value.trim();
 
@@ -23,7 +23,8 @@ async function startGame() {
 
     document.querySelectorAll(".cell").forEach(cell => {
         cell.textContent = ""; 
-       await cell.addEventListener("click", handleMove);
+        cell.removeEventListener("click", handleMove); 
+        cell.addEventListener("click", handleMove);   
     });
 }
 
