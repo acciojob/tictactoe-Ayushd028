@@ -1,6 +1,6 @@
 let player1 = "";
 let player2 = "";
-let currentPlayer = "X";
+let currentPlayer = "x";
 let gameBoard = ["", "", "", "", "", "", "", "", ""];
 let gameActive = false;
 
@@ -43,7 +43,7 @@ function handleMove(event) {
     if (checkWinner()) {
         setTimeout(() => {
             document.querySelector(".message").textContent = 
-                `${currentPlayer === "X" ? player1 : player2}, congratulations! You won! 🎉`;
+                `${currentPlayer === "x" ? player1 : player2}, congratulations you won!`;
         }, 100);
         gameActive = false;
         return;
@@ -51,16 +51,16 @@ function handleMove(event) {
 
     if (!gameBoard.includes("")) {
         setTimeout(() => {
-            document.querySelector(".message").textContent = "It's a Draw! 🤝";
+            document.querySelector(".message").textContent = "It's a Draw!";
         }, 50);
         gameActive = false;
         return;
     }
 
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    currentPlayer = currentPlayer === "x" ? "o" : "x";
     setTimeout(() => {
         document.querySelector(".message").textContent = 
-            `${currentPlayer === "X" ? player1 : player2}, you're up!`;
+            `${currentPlayer === "x" ? player1 : player2}, you're up!`;
     }, 50);
 }
 
