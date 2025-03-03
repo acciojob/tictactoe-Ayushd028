@@ -16,7 +16,7 @@ function startGame() {
     document.querySelector(".player-input").style.display = "none";
     document.querySelector(".game-container").style.display = "block";
 
-    document.querySelector(".message").textContent = `${player1}, you're up!`;
+    document.querySelector(".message").textContent = `${player1}, you're up`;
     gameActive = true;
     currentPlayer = "x";
     gameBoard = ["", "", "", "", "", "", "", "", ""];
